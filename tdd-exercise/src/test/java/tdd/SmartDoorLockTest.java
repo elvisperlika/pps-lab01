@@ -33,7 +33,7 @@ public class SmartDoorLockTest {
 
     @Test
     void testUnlockOnFirstSetup() {
-        int PIN = 1234;
+        String PIN = "1234";
         smartLock.lock();
         assertTrue(smartLock.isLocked());
         smartLock.unlock(PIN);
@@ -42,8 +42,8 @@ public class SmartDoorLockTest {
 
     @Test
     void testSetNewPin() {
-        int OLD_PIN = 1234;
-        int NEW_PIN = 5678;
+        String OLD_PIN = "1234";
+        String NEW_PIN = "5678";
         smartLock.lock();
         smartLock.setPin(NEW_PIN);
         smartLock.unlock(OLD_PIN);
@@ -54,9 +54,8 @@ public class SmartDoorLockTest {
 
     @Test
     void testPinHas4Digits() {
-        int NEW_PIN = 00;
+        String NEW_PIN = "000";
         assertThrows(IllegalArgumentException.class, () -> smartLock.setPin(NEW_PIN));
-
     }
 
 }

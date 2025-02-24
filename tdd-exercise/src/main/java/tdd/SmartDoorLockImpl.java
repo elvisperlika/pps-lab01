@@ -4,32 +4,32 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     private static final int PIN_MAX_LENGTH = 4;
     private boolean isLock;
-    private int pin = 1234;
+    private String pin = "1234";
 
     public SmartDoorLockImpl() {
         this.isLock = false;
     }
 
     @Override
-    public void setPin(final int pin) {
+    public void setPin(final String pin) {
         String stringPin = String.valueOf(pin);
         checkPinLength(stringPin);
         this.pin = pin;
     }
 
-    private static void checkPinLength(String stringPin) {
-        if (stringPin.length() != PIN_MAX_LENGTH)
+    private static void checkPinLength(String pin) {
+        if (pin.length() != PIN_MAX_LENGTH)
             throw new IllegalArgumentException("Number of digits wrong");
     }
 
     @Override
-    public void unlock(final int pin) {
+    public void unlock(final String pin) {
         if (isLock && isPinCorrect(pin))
             this.isLock = false;
     }
 
-    private boolean isPinCorrect(final int pin) {
-        return this.pin == pin;
+    private boolean isPinCorrect(final String pin) {
+        return this.pin.equals(pin);
     }
 
     @Override
