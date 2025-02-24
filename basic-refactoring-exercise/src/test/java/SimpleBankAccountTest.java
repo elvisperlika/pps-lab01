@@ -49,6 +49,14 @@ class SimpleBankAccountTest {
     }
 
     @Test
+    void testWithdrawNegative() {
+        final int negativeWithdrawAmount = -100;
+        final double previousBalance = bankAccount.getBalance();
+        bankAccount.withdraw(accountHolder.getId(), negativeWithdrawAmount);
+        assertEquals(previousBalance, bankAccount.getBalance());
+    }
+
+    @Test
     void testWithdraw() {
         final int amount = 100;
         final int withdrawAmount = 70;
