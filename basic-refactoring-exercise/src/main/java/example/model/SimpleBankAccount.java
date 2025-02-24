@@ -34,13 +34,19 @@ public class SimpleBankAccount implements BankAccount {
 
     @Override
     public void withdraw(final int userID, final double amount) {
-        if (!checkUser(userID))
-            throw new IllegalArgumentException("User ID wrong");
+        checkUserValidity(userID);
+        checkWithdrawAmountValidity(amount);
+        this.balance -= amount;
+    }
 
+    private void checkWithdrawAmountValidity(double amount) {
         if (!isWithdrawAllowed(amount))
             throw new IllegalArgumentException("Amount invalid: negative or grater than balance");
+    }
 
-        this.balance -= amount;
+    private void checkUserValidity(int userID) {
+        if (!checkUser(userID))
+            throw new IllegalArgumentException("User ID wrong");
     }
 
     @Override
