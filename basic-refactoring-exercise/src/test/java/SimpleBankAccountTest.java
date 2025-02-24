@@ -14,6 +14,7 @@ class SimpleBankAccountTest {
     public static final int AMOUNT_50 = 50;
     public static final int AMOUNT_70 = 70;
     public static final int EXPECTED_30 = 30;
+    private static final double WITHDRAW_FEE = 1;
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
 
@@ -53,5 +54,13 @@ class SimpleBankAccountTest {
         bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
         bankAccount.withdraw(2, AMOUNT_70);
         assertEquals(AMOUNT_100, bankAccount.getBalance());
+    }
+
+    @Test
+    void testFeeWhenWithdraw() {
+        double previousBalance = bankAccount.getBalance();
+        bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
+        bankAccount.withdrawWithFee(accountHolder.getId(), AMOUNT_100);
+        assertEquals(bankAccount.getBalance(), previousBalance - WITHDRAW_FEE);
     }
 }
