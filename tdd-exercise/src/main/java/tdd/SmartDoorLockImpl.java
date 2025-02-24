@@ -2,30 +2,46 @@ package tdd;
 
 public class SmartDoorLockImpl implements SmartDoorLock {
 
-    private boolean lockStatus;
+    private static final int PIN_MAX_LENGTH = 4;
+    private boolean isLock;
+    private int pin = 1234;
 
     public SmartDoorLockImpl() {
-        this.lockStatus = false;
+        this.isLock = false;
     }
 
     @Override
-    public void setPin(int pin) {
+    public void setPin(final int pin) {
+        String stringPin = String.valueOf(pin);
+        checkPinLength(stringPin);
+        this.pin = pin;
+    }
 
+    private static void checkPinLength(String stringPin) {
+        if (stringPin.length() != PIN_MAX_LENGTH)
+            throw new IllegalArgumentException("Number of digits wrong");
     }
 
     @Override
-    public void unlock(int pin) {
+    public void unlock(final int pin) {
+        if (isLock && isPinCorrect(pin))
+            this.isLock = false;
+    }
 
+    private boolean isPinCorrect(final int pin) {
+        return this.pin == pin;
     }
 
     @Override
     public void lock() {
-        this.lockStatus = true;
+        if (this.isLock)
+            throw new IllegalStateException("Locker already locked");
+        this.isLock = true;
     }
 
     @Override
     public boolean isLocked() {
-        return this.lockStatus;
+        return this.isLock;
     }
 
     @Override
