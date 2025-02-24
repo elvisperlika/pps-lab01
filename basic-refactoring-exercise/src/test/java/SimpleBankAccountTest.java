@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SimpleBankAccountTest {
 
+    public static final int AMOUNT_100 = 100;
+    public static final int AMOUNT_50 = 50;
+    public static final int AMOUNT_70 = 70;
+    public static final int EXPECTED_30 = 30;
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
 
@@ -26,28 +30,28 @@ class SimpleBankAccountTest {
 
     @Test
     void testDeposit() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
+        assertEquals(AMOUNT_100, bankAccount.getBalance());
     }
 
     @Test
     void testWrongDeposit() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.deposit(2, 50);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
+        bankAccount.deposit(2, AMOUNT_50);
+        assertEquals(AMOUNT_100, bankAccount.getBalance());
     }
 
     @Test
     void testWithdraw() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.withdraw(accountHolder.getId(), 70);
-        assertEquals(30, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
+        bankAccount.withdraw(accountHolder.getId(), AMOUNT_70);
+        assertEquals(EXPECTED_30, bankAccount.getBalance());
     }
 
     @Test
     void testWrongWithdraw() {
-        bankAccount.deposit(accountHolder.getId(), 100);
-        bankAccount.withdraw(2, 70);
-        assertEquals(100, bankAccount.getBalance());
+        bankAccount.deposit(accountHolder.getId(), AMOUNT_100);
+        bankAccount.withdraw(2, AMOUNT_70);
+        assertEquals(AMOUNT_100, bankAccount.getBalance());
     }
 }
