@@ -20,4 +20,10 @@ public class SmartDoorLockTest {
         assertFalse(smartLock.isLocked());
     }
 
+    @Test
+    void isLocked() {
+        smartLock.lock();
+        assertTrue(smartLock.isLocked());
+    }
+
 }

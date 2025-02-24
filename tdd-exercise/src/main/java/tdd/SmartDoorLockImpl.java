@@ -2,8 +2,8 @@ package tdd;
 
 public class SmartDoorLockImpl implements SmartDoorLock {
 
-
     private boolean lockStatus;
+
     public SmartDoorLockImpl() {
         this.lockStatus = false;
     }
@@ -20,7 +20,7 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public void lock() {
-
+        this.lockStatus = true;
     }
 
     @Override
