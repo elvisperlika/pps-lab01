@@ -4,6 +4,7 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     private static final int PIN_MAX_LENGTH = 4;
     private static final int MAX_ATTEMPTS = 4;
+    private static final String DEFAULT_PIN = "1234";
     private boolean isLock;
     private String pin = "1234";
     private int tryCounter = 0;
@@ -27,7 +28,9 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public void unlock(final String pin) {
-        if (isLock && isPinCorrect(pin) && tryCounter < getMaxAttempts()) {
+        if (this.isBlocked())
+            throw new IllegalStateException("Smart Lock is blocked, Reset it!");
+        else if (isLock && isPinCorrect(pin) && tryCounter < getMaxAttempts()) {
             inizialiseTryCounter();
             this.isLock = false;
         } else {
@@ -78,6 +81,9 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public void reset() {
-
+        inizialiseTryCounter();
+        this.isLock = false;
+        this.isBlock = false;
+        setPin(DEFAULT_PIN);
     }
 }
