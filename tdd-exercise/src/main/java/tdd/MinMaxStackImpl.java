@@ -8,6 +8,7 @@ public class MinMaxStackImpl implements MinMaxStack {
 
     private final Stack<Integer> stack;
     private int minValue = Integer.MAX_VALUE;
+    private int maxValue = Integer.MIN_VALUE;
 
     public MinMaxStackImpl() {
         stack = new Stack<>();
@@ -17,6 +18,8 @@ public class MinMaxStackImpl implements MinMaxStack {
     public void push(int value) {
         if (value < minValue)
             this.minValue = value;
+        if (value > maxValue)
+            this.maxValue = value;
         stack.push(value);
     }
 
@@ -26,13 +29,22 @@ public class MinMaxStackImpl implements MinMaxStack {
             throw new IllegalStateException("Stack is empty");
         int popValue = stack.pop();
         findNewMin();
+        findNewMax();
         return popValue;
+    }
+
+    private void findNewMax() {
+        this.maxValue = Integer.MIN_VALUE;
+        for (int value : stack.stream().toList())
+            if (value >= maxValue) {
+                maxValue = value;
+            }
     }
 
     private void findNewMin() {
         this.minValue = Integer.MAX_VALUE;
         for (int value : stack.stream().toList())
-            if (value < minValue)
+            if (value <= minValue)
                 this.minValue = value;
     }
 
@@ -50,7 +62,7 @@ public class MinMaxStackImpl implements MinMaxStack {
 
     @Override
     public int getMax() {
-        return 0;
+        return this.maxValue;
     }
 
     @Override

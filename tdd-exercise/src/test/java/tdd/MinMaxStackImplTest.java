@@ -69,7 +69,7 @@ class MinMaxStackImplTest {
     }
 
     @Test
-    void testMinAfterPushing() {
+    void testGetMinAfterPushing() {
         stack.push(4);
         stack.push(5);
         stack.push(2);
@@ -78,13 +78,32 @@ class MinMaxStackImplTest {
     }
 
     @Test
-    void testMinAfterPop() {
+    void testGetMinAfterPop() {
         stack.push(4);
         stack.push(2);
         stack.push(8);
         stack.push(1);
         stack.pop();
         assertEquals(2, stack.getMin());
+    }
+
+    @Test
+    void testGetMaxAfterPushing() {
+        stack.push(4);
+        stack.push(5);
+        stack.push(2);
+        stack.push(9);
+        assertEquals(9, stack.getMax());
+    }
+
+    @Test
+    void testGetMaxAfterPop() {
+        stack.push(4);
+        stack.push(2);
+        stack.push(3);
+        stack.push(9);
+        stack.pop();
+        assertEquals(4, stack.getMax());
     }
 
 }
