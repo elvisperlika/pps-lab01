@@ -20,4 +20,11 @@ class MinMaxStackImplTest {
         assertTrue(stack.isEmpty());
     }
 
+    @Test
+    void testPushValue() {
+        int valueToPush = 7;
+        stack.push(valueToPush);
+        assertFalse(stack.isEmpty());
+    }
+
 }

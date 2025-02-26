@@ -1,21 +1,28 @@
 package tdd;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class MinMaxStackImpl implements MinMaxStack {
 
-    private Stack<Integer> stack;
+    private List<Integer> stack;
     public MinMaxStackImpl() {
-        stack = new Stack<>();
+        stack = new ArrayList<>();
     }
 
     @Override
     public void push(int value) {
+        stack.add(value);
     }
 
     @Override
     public int pop() {
-        return 0;
+        return stack.get(getIndexOfLastPush());
+    }
+
+    private int getIndexOfLastPush() {
+        return stack.size() - 1;
     }
 
     @Override
