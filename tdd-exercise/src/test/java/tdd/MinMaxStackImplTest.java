@@ -3,6 +3,8 @@ package tdd;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MinMaxStackImplTest {
@@ -38,5 +40,16 @@ class MinMaxStackImplTest {
     void testPopFromEmptyStack() {
         assertThrows(IllegalStateException.class, () -> stack.pop());
     }
+
+    @Test
+    void testSize() {
+        int numberOfValueToPush = 10;
+        Random rand = new Random();
+        for (int i = 0; i < numberOfValueToPush; i++) {
+            stack.push(rand.nextInt());
+        }
+        assertEquals(numberOfValueToPush, stack.size());
+    }
+
 
 }
