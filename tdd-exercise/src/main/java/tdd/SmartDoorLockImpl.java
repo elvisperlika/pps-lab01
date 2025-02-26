@@ -6,18 +6,19 @@ public class SmartDoorLockImpl implements SmartDoorLock {
     private static final int MAX_ATTEMPTS = 4;
     private static final String DEFAULT_PIN = "1234";
     private boolean isLock;
-    private String pin = "1234";
-    private int tryCounter = 0;
+    private String pin;
+    private int failedAttempts;
     private boolean isBlock;
 
     public SmartDoorLockImpl() {
         this.isLock = false;
+        this.pin = DEFAULT_PIN;
+        this.failedAttempts = 0;
     }
 
     @Override
     public void setPin(final String pin) {
-        String stringPin = String.valueOf(pin);
-        checkPinLength(stringPin);
+        checkPinLength(pin);
         this.pin = pin;
     }
 
@@ -30,12 +31,12 @@ public class SmartDoorLockImpl implements SmartDoorLock {
     public void unlock(final String pin) {
         if (this.isBlocked())
             throw new IllegalStateException("Smart Lock is blocked, Reset it!");
-        else if (isLock && isPinCorrect(pin) && tryCounter < getMaxAttempts()) {
-            inizialiseTryCounter();
+        else if (getFailedAttempts() <= getMaxAttempts() && isLock && isPinCorrect(pin)) {
+            inizialiseFailedAttemptsCounter();
             this.isLock = false;
         } else {
-            this.tryCounter++;
-            if (tryCounter >= getMaxAttempts())
+            this.failedAttempts++;
+            if (getFailedAttempts() > getMaxAttempts())
                 goInBlockMode();
         }
     }
@@ -44,8 +45,8 @@ public class SmartDoorLockImpl implements SmartDoorLock {
         this.isBlock = true;
     }
 
-    private void inizialiseTryCounter() {
-        this.tryCounter = 0;
+    private void inizialiseFailedAttemptsCounter() {
+        this.failedAttempts = 0;
     }
 
     private boolean isPinCorrect(final String pin) {
@@ -76,12 +77,12 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public int getFailedAttempts() {
-        return 0;
+        return failedAttempts;
     }
 
     @Override
     public void reset() {
-        inizialiseTryCounter();
+        inizialiseFailedAttemptsCounter();
         this.isLock = false;
         this.isBlock = false;
         setPin(DEFAULT_PIN);

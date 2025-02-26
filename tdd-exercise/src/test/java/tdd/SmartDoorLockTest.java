@@ -43,11 +43,10 @@ public class SmartDoorLockTest {
 
     @Test
     void testSetNewPin() {
-        String OLD_PIN = "1234";
         String NEW_PIN = "5678";
         smartLock.lock();
         smartLock.setPin(NEW_PIN);
-        smartLock.unlock(OLD_PIN);
+        smartLock.unlock(DEFAULT_PIN);
         assertTrue(smartLock.isLocked());
         smartLock.unlock(NEW_PIN);
         assertFalse(smartLock.isLocked());
@@ -61,25 +60,25 @@ public class SmartDoorLockTest {
 
     @Test
     void testDeviceBlockAfterMaxAttempts() {
-        blockDeviceWithMultipleErrors();
+        blockDeviceWithMultipleUnlockErrors();
         assertTrue(smartLock.isBlocked());
     }
 
     @Test
     void testUnlockWhenSmartLockIsBlocked() {
-        blockDeviceWithMultipleErrors();
+        blockDeviceWithMultipleUnlockErrors();
         String WRONG_PIN = "9999";
         assertThrows(IllegalStateException.class, () -> smartLock.unlock(WRONG_PIN));
     }
 
     @Test
     void testResetFromBlockMode() {
-        blockDeviceWithMultipleErrors();
+        blockDeviceWithMultipleUnlockErrors();
         smartLock.reset();
         smartLock.unlock(DEFAULT_PIN);
     }
 
-    private void blockDeviceWithMultipleErrors() {
+    private void blockDeviceWithMultipleUnlockErrors() {
         smartLock.setPin(DEFAULT_PIN);
         String WRONG_PIN = "9999";
         for (int i = 0; i < smartLock.getMaxAttempts(); i++) {
