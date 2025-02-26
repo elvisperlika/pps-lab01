@@ -63,6 +63,9 @@ class MinMaxStackImplTest {
         assertEquals(peekedValue, stack.pop());
     }
 
-
+    @Test
+    void testPeekFromEmptyStack() {
+        assertThrows(IllegalStateException.class, () -> stack.peek());
+    }
 
 }
