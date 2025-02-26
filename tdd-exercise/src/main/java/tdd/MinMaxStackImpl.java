@@ -3,26 +3,25 @@ package tdd;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.Vector;
 
 public class MinMaxStackImpl implements MinMaxStack {
 
-    private List<Integer> stack;
+    private Stack<Integer> stack;
     public MinMaxStackImpl() {
-        stack = new ArrayList<>();
+        stack = new Stack<>();
     }
 
     @Override
     public void push(int value) {
-        stack.add(value);
+        stack.push(value);
     }
 
     @Override
     public int pop() {
-        return stack.get(getIndexOfLastPush());
-    }
-
-    private int getIndexOfLastPush() {
-        return stack.size() - 1;
+        if (stack.isEmpty())
+            throw new IllegalStateException("Stack is empty");
+        return stack.pop();
     }
 
     @Override
