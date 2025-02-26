@@ -51,5 +51,18 @@ class MinMaxStackImplTest {
         assertEquals(numberOfValueToPush, stack.size());
     }
 
+    @Test
+    void  testPeekFromStack() {
+        int valueToPush = 8;
+        stack.push(valueToPush);
+        int stackSizePrePeeking = stack.size();
+        int peekedValue = stack.peek();
+        int stackSizeAfterPeeking = stack.size();
+        assertEquals(stackSizePrePeeking, stackSizeAfterPeeking);
+
+        assertEquals(peekedValue, stack.pop());
+    }
+
+
 
 }
