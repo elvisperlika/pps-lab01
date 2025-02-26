@@ -42,6 +42,11 @@ public class SmartDoorLockTest {
     }
 
     @Test
+    void testUnlockWhenAlreadyUnlocked() {
+        assertThrows(IllegalStateException.class, () -> smartLock.unlock(DEFAULT_PIN));
+    }
+
+    @Test
     void testSetNewPin() {
         String NEW_PIN = "5678";
         smartLock.lock();
@@ -75,13 +80,15 @@ public class SmartDoorLockTest {
     void testResetFromBlockMode() {
         blockDeviceWithMultipleUnlockErrors();
         smartLock.reset();
+        smartLock.lock();
         smartLock.unlock(DEFAULT_PIN);
     }
 
     private void blockDeviceWithMultipleUnlockErrors() {
         smartLock.setPin(DEFAULT_PIN);
+        smartLock.lock();
         String WRONG_PIN = "9999";
-        for (int i = 0; i < smartLock.getMaxAttempts(); i++) {
+        for (int i = 0; i <= smartLock.getMaxAttempts(); i++) {
             smartLock.unlock(WRONG_PIN);
         }
     }

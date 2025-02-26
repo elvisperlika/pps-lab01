@@ -31,6 +31,8 @@ public class SmartDoorLockImpl implements SmartDoorLock {
     public void unlock(final String pin) {
         if (this.isBlocked())
             throw new IllegalStateException("Smart Lock is blocked, Reset it!");
+        else if (!isLock)
+            throw new IllegalStateException("Smarl Lock is already unlocked.");
         else if (getFailedAttempts() <= getMaxAttempts() && isLock && isPinCorrect(pin)) {
             inizialiseFailedAttemptsCounter();
             this.isLock = false;
