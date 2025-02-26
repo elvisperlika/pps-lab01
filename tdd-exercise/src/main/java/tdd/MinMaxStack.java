@@ -1,5 +1,7 @@
 package tdd;
 
+import java.util.Stack;
+
 /**
  * Task 2 - TDD for Min Max Stack
  * A stack that supports retrieving the minimum and maximum values in constant time.
