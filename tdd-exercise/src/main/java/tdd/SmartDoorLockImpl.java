@@ -3,8 +3,11 @@ package tdd;
 public class SmartDoorLockImpl implements SmartDoorLock {
 
     private static final int PIN_MAX_LENGTH = 4;
+    private static final int MAX_ATTEMPTS = 4;
     private boolean isLock;
     private String pin = "1234";
+    private int tryCounter = 0;
+    private boolean isBlock;
 
     public SmartDoorLockImpl() {
         this.isLock = false;
@@ -24,8 +27,22 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public void unlock(final String pin) {
-        if (isLock && isPinCorrect(pin))
+        if (isLock && isPinCorrect(pin) && tryCounter < getMaxAttempts()) {
+            inizialiseTryCounter();
             this.isLock = false;
+        } else {
+            this.tryCounter++;
+            if (tryCounter >= getMaxAttempts())
+                goInBlockMode();
+        }
+    }
+
+    private void goInBlockMode() {
+        this.isBlock = true;
+    }
+
+    private void inizialiseTryCounter() {
+        this.tryCounter = 0;
     }
 
     private boolean isPinCorrect(final String pin) {
@@ -46,12 +63,12 @@ public class SmartDoorLockImpl implements SmartDoorLock {
 
     @Override
     public boolean isBlocked() {
-        return false;
+        return this.isBlock;
     }
 
     @Override
     public int getMaxAttempts() {
-        return 0;
+        return MAX_ATTEMPTS;
     }
 
     @Override

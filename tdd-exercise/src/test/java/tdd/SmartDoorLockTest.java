@@ -58,4 +58,15 @@ public class SmartDoorLockTest {
         assertThrows(IllegalArgumentException.class, () -> smartLock.setPin(NEW_PIN));
     }
 
+    @Test
+    void testDeviceBlockAfterMaxAttempts() {
+        String PIN = "1234";
+        smartLock.setPin(PIN);
+        String WRONG_PIN = "9999";
+        for (int i = 0; i < smartLock.getMaxAttempts(); i++) {
+            smartLock.unlock(WRONG_PIN);
+        }
+        assertTrue(smartLock.isBlocked());
+    }
+
 }
