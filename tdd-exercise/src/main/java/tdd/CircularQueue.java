@@ -13,4 +13,27 @@ package tdd;
  *   - Introduce methods in the interface in order to make the tests pass.
  *   - Refactor
  */
-public interface CircularQueue { }
+public interface CircularQueue {
+
+    /**
+     * Add value in queue.
+     *
+     * @param value the Integer to add
+     */
+    void add(int value);
+
+    /**
+     * Get the queue size.
+     *
+     * @return size
+     */
+    int getSize();
+
+    /**
+     * Get the value of the element in queue by index.
+     *
+     * @param index of the element
+     * @return value of the element
+     */
+    int getByIndex(int index);
+}
