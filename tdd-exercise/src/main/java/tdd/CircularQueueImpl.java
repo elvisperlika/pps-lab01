@@ -45,6 +45,8 @@ public class CircularQueueImpl implements CircularQueue {
 
     @Override
     public void removeOldest() {
+        if (list.isEmpty())
+            throw new IllegalStateException("Queue is empty, no element to remove.");
         list.remove(0);
     }
 }

@@ -49,7 +49,7 @@ public class CircularListTest {
     }
 
     @Test
-    void removeOldestValue() {
+    void testRemoveOldestValue() {
         Random rand = new Random();
         for (int i = 0; i < rand.nextInt(1, 200); i++) {
             circularQueue.add(rand.nextInt(1, 5));
@@ -57,6 +57,11 @@ public class CircularListTest {
         circularQueue.removeOldest();
         circularQueue.removeOldest();
         assertEquals(this.size - 2, circularQueue.getSize());
+    }
+
+    @Test
+    void testRemoveFromEmptyList() {
+        assertThrows(IllegalStateException.class, () -> circularQueue.removeOldest());
     }
 
 }
