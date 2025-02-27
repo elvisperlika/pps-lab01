@@ -23,11 +23,16 @@ public interface CircularQueue {
     void add(int value);
 
     /**
+     * Get capacity of the queue.
+     */
+    int getCapacity();
+
+    /**
      * Get the queue size.
      *
      * @return size
      */
-    int getSize();
+    int getCurrentSize();
 
     /**
      * Get the value of the element in queue by index.
@@ -40,6 +45,7 @@ public interface CircularQueue {
     /**
      * Remove the oldest value in the queue.
      *
+     * @throws IllegalStateException if the queue is empty
      */
     void removeOldest();
 }

@@ -1,6 +1,5 @@
 package tdd;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,18 +33,24 @@ public class CircularListTest {
         for (int i = 0; i < (previousSize + surplusElements); i++) {
             circularQueue.add(rand.nextInt(1, 5));
         }
-        assertEquals(previousSize, circularQueue.getSize());
+        assertEquals(previousSize, circularQueue.getCurrentSize());
     }
 
     @Test
     void testAddInFullQueue(){
         Random rand = new Random();
-        for (int i = 0; i < circularQueue.getSize(); i++) {
+        for (int i = 0; i < circularQueue.getCurrentSize(); i++) {
             circularQueue.add(rand.nextInt(1, 5));
         }
         int differentValueToAdd = 1;
         circularQueue.add(differentValueToAdd);
         assertEquals(differentValueToAdd, circularQueue.getByIndex(0));
+    }
+
+    @Test
+    void testAccessIndexByNotValidIndex() {
+        assertThrows(IllegalArgumentException.class, () -> circularQueue.getByIndex(-1));
+        assertThrows(IllegalArgumentException.class, () -> circularQueue.getByIndex(circularQueue.getCurrentSize() + 1));
     }
 
     @Test
@@ -56,7 +61,7 @@ public class CircularListTest {
         }
         circularQueue.removeOldest();
         circularQueue.removeOldest();
-        assertEquals(this.size - 2, circularQueue.getSize());
+        assertEquals(this.size - 2, circularQueue.getCurrentSize());
     }
 
     @Test
