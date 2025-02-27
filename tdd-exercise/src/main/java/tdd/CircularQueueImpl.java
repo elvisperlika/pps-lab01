@@ -42,4 +42,9 @@ public class CircularQueueImpl implements CircularQueue {
     public int getByIndex(int index) {
         return list.get(index);
     }
+
+    @Override
+    public void removeOldest() {
+        list.remove(0);
+    }
 }

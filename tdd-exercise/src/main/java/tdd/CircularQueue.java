@@ -36,4 +36,10 @@ public interface CircularQueue {
      * @return value of the element
      */
     int getByIndex(int index);
+
+    /**
+     * Remove the oldest value in the queue.
+     *
+     */
+    void removeOldest();
 }

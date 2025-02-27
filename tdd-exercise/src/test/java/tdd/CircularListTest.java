@@ -28,8 +28,8 @@ public class CircularListTest {
 
     @Test
     void testQueueSizeNotChange() {
-        Random rand = new Random();
         int surplusElements = 7;
+        Random rand = new Random();
         int previousSize = this.size;
         for (int i = 0; i < (previousSize + surplusElements); i++) {
             circularQueue.add(rand.nextInt(1, 5));
@@ -46,6 +46,17 @@ public class CircularListTest {
         int differentValueToAdd = 1;
         circularQueue.add(differentValueToAdd);
         assertEquals(differentValueToAdd, circularQueue.getByIndex(0));
+    }
+
+    @Test
+    void removeOldestValue() {
+        Random rand = new Random();
+        for (int i = 0; i < rand.nextInt(1, 200); i++) {
+            circularQueue.add(rand.nextInt(1, 5));
+        }
+        circularQueue.removeOldest();
+        circularQueue.removeOldest();
+        assertEquals(this.size - 2, circularQueue.getSize());
     }
 
 }
