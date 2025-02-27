@@ -10,14 +10,14 @@ public class CircularQueueImpl implements CircularQueue {
 
     public CircularQueueImpl(int size) {
         this.capacity = size;
-        list = new ArrayList<>(size);
+        this.list = new ArrayList<>(size);
     }
 
     @Override
     public void add(int value) {
         if (list.size() == this.capacity) {
             shiftRightList();
-            addInFirstPosition(value);
+            setInsteadOldestValue(value);
         } else {
             list.add(value);
         }
@@ -28,7 +28,7 @@ public class CircularQueueImpl implements CircularQueue {
         return this.capacity;
     }
 
-    private void addInFirstPosition(int value) {
+    private void setInsteadOldestValue(int value) {
         list.set(0, value);
     }
 
@@ -46,7 +46,7 @@ public class CircularQueueImpl implements CircularQueue {
     @Override
     public int getByIndex(int index) {
         if (index < 0 || index > this.getCurrentSize())
-            throw new IllegalArgumentException("Out of Bound.");
+            throw new IllegalArgumentException("Invalid index.");
         return list.get(index);
     }
 
